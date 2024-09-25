@@ -64,7 +64,7 @@ const isMenuOpen = ref(false);
             </span>
         </button>
     </nav>
-    <div class="container max-w-5xl">
+    <div class="container md:max-w-4xl xl:max-w-5xl">
         <slot />
     </div>
 </template>
