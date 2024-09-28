@@ -23,6 +23,18 @@ export default defineNuxtConfig({
               950: "#000103",
             },
           },
+          animation: {
+            spinner: 'spinner 10s ease-in-out infinite'
+          },
+          keyframes: {
+            spinner: {
+              "0%": { transform: "translateX(0px) translateY(0px)" },
+              "25%": { transform: "translateX(10px) translateY(-10px)" },
+              "50%": { transform: "translateX(20px) translateY(0px)" },
+              "75%": { transform: "translateX(10px) translateY(10px)" },
+              "100%": { transform: "translateX(0px) translateY(0px)" }
+            }
+          }
         },
         container: {
           center: true,
@@ -37,4 +49,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  vite: {
+    define: {
+      'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
+    }
+  }
 });
