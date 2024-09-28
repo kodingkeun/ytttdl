@@ -6,25 +6,25 @@ const apiBaseUrl = process.env.API_BASE_URL;
 const isDownloading = ref(false);
 const youtubeRegex = /^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}$/;
 const form = reactive({
-  url: '',
-  errors: {
-    url: null,
-  }
+    url: "",
+    errors: {
+        url: null,
+    },
 });
 
 const validateUrl = () => {
-  if (!form.url) {
-    form.errors.url = 'Link tidak boleh kosong.';
-  } else if (!youtubeRegex.test(form.url)) {
-    form.errors.url = `Harus berupa URL YouTube yang valid. Contoh: https://www.youtube.com/watch?v=[VIDEO_ID]`;
-  } else {
-    form.errors.url = null;
-  }
-}
+    if (!form.url) {
+        form.errors.url = "Link tidak boleh kosong.";
+    } else if (!youtubeRegex.test(form.url)) {
+        form.errors.url = `Link harus berupa URL YouTube yang valid. Contoh: https://www.youtube.com/watch?v=[VIDEO_ID]`;
+    } else {
+        form.errors.url = null;
+    }
+};
 const {
     response: videos,
     request: getVideo,
-    pending,
+    pending
 } = useApi({
     apiUrl: "/ytdl/info",
 });
@@ -35,7 +35,7 @@ const handleSubmit = () => {
         return;
     }
     getVideo(form.url);
-}
+};
 
 const downloadVideo = async (videoUrl) => {
     if (videoUrl === "full-hd") {
@@ -65,6 +65,7 @@ const downloadVideo = async (videoUrl) => {
         <form
             @submit.prevent="handleSubmit"
             class="w-full max-w-[500px] border focus-within:shadow duration-200 flex h-11 p-1 rounded-md gap-2 items-center"
+            :class="form.errors.url ? 'border-red-500' : ''"
         >
             <MagnifyingGlassIcon class="size-7 opacity-50 ml-2 flex-none" />
             <input
@@ -82,9 +83,11 @@ const downloadVideo = async (videoUrl) => {
                 <span>{{ pending ? "Searching..." : "Search" }}</span>
             </button>
         </form>
-        <small v-if="form.errors.url" class="text-red-600">
-            {{ form.errors.url }}
-        </small>
+        <transition name="fade" enter-from-class="-translate-y-5 opacity-0" enter-to-class="translate-y-0 opacity-100">
+            <small v-if="form.errors.url" class="text-red-600 inline-block -mt-3 font-medium">
+                {{ form.errors.url }}
+            </small>
+        </transition>
 
         <CardPreview v-if="videos && !pending">
             <CardPreviewThumbnail
