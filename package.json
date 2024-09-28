@@ -13,6 +13,7 @@
     "@heroicons/vue": "^2.1.5",
     "@nuxt/fonts": "^0.9.1",
     "@nuxtjs/tailwindcss": "^6.12.1",
+    "axios": "^1.7.7",
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest"
