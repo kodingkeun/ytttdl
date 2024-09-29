@@ -63,6 +63,7 @@ const downloadVideo = async (videoUrl) => {
 <template>
     <div class="flex flex-col gap-5 items-center text-center mt-5">
         <InputSearch
+            placeholder="Masukan link YouTube"
             v-model="form.url"
             :errors="form.errors.url"
             :loading="pending"

@@ -5,7 +5,8 @@ const emit = defineEmits(["submit"]);
 const model = defineModel();
 const props = defineProps({
   errors: Object,
-  loading: Boolean
+  loading: Boolean,
+  placeholder: String
 })
 </script>
 
@@ -23,7 +24,7 @@ const props = defineProps({
             <input
                 type="text"
                 class="w-full text-sm outline-none overflow-x-auto"
-                placeholder="Masukan link tiktok"
+                :placeholder="props.placeholder"
                 v-model="model"
             />
         </label>
