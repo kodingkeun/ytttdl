@@ -15,19 +15,23 @@ export const useApi = ({ apiUrl }) => {
         }).toString();
 
         try {
-            const res = await axios.post(baseUrl + apiUrl, {
-                method: "POST",
-                headers: {
-                    accept: "application/json",
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body
-            });
+            const res = await axios.post(
+                baseUrl + apiUrl,
+                body,
+                {
+                    headers: {
+                        accept: "application/json",
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                }
+            );
 
-            response.value = res;
+            response.value = res.data;
         } catch (err) {
-            console.error(err.response.data.message.errors.url);
-            error.value = true;
+            console.error(
+                err.response?.data?.message?.errors?.url || "Unknown error"
+            );
+            error.value = err.response?.data?.message || "Error";
         } finally {
             pending.value = false;
         }
