@@ -38,7 +38,7 @@ export default defineNuxtConfig({
         },
         container: {
           center: true,
-          padding: "0.5rem"
+          padding: "1rem"
         },
         fontFamily: {
           sans: ['Inter']
