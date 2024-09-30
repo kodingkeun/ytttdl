@@ -17,7 +17,7 @@ const props = defineProps({
     >
         <label
             for="url"
-            class="w-full flex-1 border focus-within:shadow duration-200 flex sm:h-full rounded-md gap-2 items-center"
+            class="w-full flex-1 border focus-within:shadow duration-200 flex sm:h-full rounded-md gap-2 items-center dark:border-iron-900"
             :class="props.errors ? 'border-red-500' : ''"
         >
             <MagnifyingGlassIcon class="size-7 opacity-50 ml-2 flex-none" />
@@ -31,7 +31,7 @@ const props = defineProps({
         <button
             type="submit"
             :disabled="props.loading"
-            class="bg-primary hover:bg-primary-600 duration-150 text-white font-medium inline-flex justify-center items-center gap-1.5 flex-1 sm:flex-none sm:h-full rounded-md px-5 disabled:bg-primary-300"
+            class="btn-primary"
         >
             <IconsSpinner v-if="props.loading" />
             <span>{{ props.loading ? "Searching..." : "Search" }}</span>

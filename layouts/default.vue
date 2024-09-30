@@ -40,7 +40,23 @@ const whyMustUs = [
 ];
 
 const isDark = ref(false);
-const isMenuOpen = ref(false);
+
+
+watch(isDark, (value) => {
+    if (value) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+    } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+    }
+});
+
+onMounted(() => {
+    if (localStorage.getItem("theme") === "dark") {
+        isDark.value = true;
+    }
+});
 </script>
 
 <template>
@@ -48,7 +64,7 @@ const isMenuOpen = ref(false);
         class="container flex justify-between items-center md:max-w-4xl xl:max-w-5xl h-8 mt-4"
     >
         <NuxtLink to="/" class="text-2xl font-bold">YTTT-DL</NuxtLink>
-        <ul class="hidden lg:flex gap-5 text-[#323232]">
+        <ul class="hidden lg:flex gap-5 text-[#323232] dark:text-iron">
             <li v-for="link in links">
                 <NuxtLink
                     :to="link.url"
@@ -60,7 +76,7 @@ const isMenuOpen = ref(false);
             </li>
         </ul>
         <button
-            class="w-20 h-9 rounded-full border px-1 py-[3px] hover:shadow focus:shadow duration-200 flex items-center justify-between relative"
+            class="w-20 h-9 rounded-full border dark:border-white/10 text-black/70 dark:text-white/70 px-1 py-[3px] hover:shadow focus:shadow duration-200 flex items-center justify-between relative"
             type="button"
             @click="isDark = !isDark"
         >
@@ -71,7 +87,7 @@ const isMenuOpen = ref(false);
                 <MoonIcon class="size-4" />
             </span>
             <span
-                class="flex-1 h-full bg-primary py-[2px] px-2 inline-flex items-center text-xs justify-center rounded-full text-white relative z-20 duration-200"
+                class="flex-1 h-full bg-primary dark:bg-primaryDark py-[2px] px-2 inline-flex items-center text-xs justify-center rounded-full text-white dark:text-primary-content relative z-20 duration-200"
                 :class="isDark ? ' translate-x-[calc(50%+0.4rem)]' : ''"
             >
                 {{ isDark ? "Dark" : "Light" }}
@@ -86,7 +102,7 @@ const isMenuOpen = ref(false);
     </nav>
 
     <nav
-        class="fixed bg-white bottom-0 left-0 w-full flex gap-2 shadow-slate-800/40 shadow rounded-t-lg py-3 px-2 z-50 lg:hidden"
+        class="fixed bg-white dark:bg-ebony-clay dark:border-iron/10 dark:border-t bottom-0 left-0 w-full flex gap-2 shadow-slate-800/40 shadow py-3 px-2 z-50 lg:hidden"
     >
         <template v-for="link in links">
             <NuxtLink
@@ -95,7 +111,7 @@ const isMenuOpen = ref(false);
                 :class="
                     $route.path === link.url
                         ? 'bg-primary text-white'
-                        : 'bg-transparent text-black/50'
+                        : 'bg-transparent text-black/50 dark:text-iron/50'
                 "
             >
                 <component :is="link.icon" class="size-6" />
@@ -106,11 +122,13 @@ const isMenuOpen = ref(false);
 
     <div class="container md:max-w-4xl xl:max-w-5xl">
         <div class="flex flex-col gap-5 items-center text-center mt-16">
-            <h1 class="text-3xl md:text-5xl font-bold">
+            <h1 class="text-3xl md:text-5xl font-bold dark:text-white">
                 {{ $route.path === "/" ? "YouTube" : "TikTok" }} Video
                 Downloader
             </h1>
-            <p class="text-base text-[#707070] inline-block max-w-lg">
+            <p
+                class="text-base text-[#707070] dark:text-iron/50 inline-block max-w-lg"
+            >
                 Download video favorit Anda dalam hitungan detik, tanpa batas
                 dan tanpa watermark. Simpan dalam kualitas HD untuk ditonton
                 kapan saja!
@@ -124,7 +142,7 @@ const isMenuOpen = ref(false);
                 <h1 class="text-3xl font-bold inline-block max-w-md">
                     Online & Free YouTube Video Downloader
                 </h1>
-                <p class="text-[#707070]">
+                <p class="text-[#707070] dark:text-iron/50">
                     Website YouTube dan TikTok downloader adalah solusi praktis
                     untuk mengunduh video dari platform video populer seperti
                     YouTube dan TikTok secara cepat dan mudah. Dengan
@@ -143,7 +161,7 @@ const isMenuOpen = ref(false);
         </div>
     </div>
 
-    <div class="bg-primary/10 mt-16">
+    <div class="bg-primary/10 dark:bg-primary-50/10 mt-16">
         <div class="container text-center py-10 space-y-3">
             <h1 class="text-3xl font-bold inline-block max-w-md">
                 3 Alasan kenapa harus memilih YTTDL
@@ -151,7 +169,7 @@ const isMenuOpen = ref(false);
             <div class="flex flex-col lg:flex-row gap-4 mt-10">
                 <div
                     v-for="card in whyMustUs"
-                    class="flex-1 flex flex-col items-center justify-center bg-white text-center p-3 rounded-md gap-1"
+                    class="flex-1 flex flex-col items-center justify-center bg-white dark:bg-ebony-clay text-center p-3 rounded-md gap-1"
                 >
                     <div
                         class="rounded-full text-white size-8 grid place-items-center"
@@ -159,14 +177,16 @@ const isMenuOpen = ref(false);
                     >
                         <component :is="card.icon" class="size-5" />
                     </div>
-                    <h1 class="font-bold">{{ card.title }}</h1>
-                    <p>{{ card.description }}</p>
+                    <h1 class="font-bold dark:text-white">{{ card.title }}</h1>
+                    <p class="dark:text-iron/90">{{ card.description }}</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="mt-20 bg-slate-100 text-center py-5 px-3">
+    <footer
+        class="pb-20 lg:pb-5 mt-20 bg-slate-100 dark:bg-slate-600/10 text-center py-5 px-3"
+    >
         <h1>
             Made with ❤️ by
             <a href="https://kodingkeun.com" class="text-primary">Kodingkeun</a>
