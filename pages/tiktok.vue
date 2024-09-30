@@ -178,7 +178,7 @@ const togglePlayPause = () => {
                 <ButtonDownload :downloading="isDownloading" />
             </form>
         </div>
-        <CardPreviewStatus v-else-if="!videos && !pending" status="not-found" />
-        <CardPreviewLoading v-else-if="!videos && pending" />
+        <CardPreviewStatus v-else-if="!video && !pending" status="not-found" />
+        <CardPreviewLoading v-else-if="!video && pending" />
     </div>
 </template>
