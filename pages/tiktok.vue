@@ -85,6 +85,7 @@ const togglePlayPause = () => {
 <template>
     <div class="flex flex-col gap-5 items-center text-center mt-5">
         <InputSearch
+            placeholder="Masukan link TikTok"
             v-model="form.url"
             :errors="form.errors.url"
             :loading="pending"
@@ -103,8 +104,8 @@ const togglePlayPause = () => {
             </small>
         </transition>
 
-        <div class="flex flex-col gap-2 items-center">
-            <div v-if="video && !pending" class="w-full flex gap-3 max-w-xs">
+        <div v-if="video && !pending" class="flex flex-col gap-2 items-center">
+            <div class="w-full flex gap-3 max-w-xs">
                 <div
                     class="flex-1 min-h-[568px] sm:max-h-[500px] rounded-md shadow overflow-hidden relative"
                 >
@@ -177,5 +178,7 @@ const togglePlayPause = () => {
                 <ButtonDownload :downloading="isDownloading" />
             </form>
         </div>
+        <CardPreviewStatus v-else-if="!videos && !pending" status="not-found" />
+        <CardPreviewLoading v-else-if="!videos && pending" />
     </div>
 </template>
