@@ -7,11 +7,12 @@ import {
     ShieldCheckIcon,
     WrenchIcon,
 } from "@heroicons/vue/16/solid";
-import { XMarkIcon } from "@heroicons/vue/24/outline";
+import LogoYoutube from "~/components/icons/LogoYoutube.vue";
+import LogoTiktok from "~/components/icons/LogoTiktok.vue";
 
 const links = [
-    { label: "Youtube", link: "/" },
-    { label: "Tiktok", link: "/tiktok" },
+    { label: "Youtube", url: "/", icon: LogoYoutube },
+    { label: "Tiktok", url: "/tiktok", icon: LogoTiktok },
 ];
 
 const whyMustUs = [
@@ -46,42 +47,11 @@ const isMenuOpen = ref(false);
     <nav
         class="container flex justify-between items-center md:max-w-4xl xl:max-w-5xl h-8 mt-4"
     >
-        <button type="button" @click="isMenuOpen = true" class="lg:hidden">
-            <Bars3Icon class="size-6" />
-        </button>
-        <ul
-            class="flex flex-col min-w-full sm:min-w-72 min-h-svh gap-5 text-[#323232] lg:hidden absolute top-0 duration-500 bg-white shadow p-3 *:w-full z-50"
-            :class="
-                isMenuOpen
-                    ? 'left-0 visible opacity-100'
-                    : '-left-full invisible opacity-0'
-            "
-        >
-            <li class="border-b pb-2 inline-flex justify-between items-center">
-                <NuxtLink to="/" class="text-2xl font-bold">YTTT-DL</NuxtLink>
-                <button
-                    @click="isMenuOpen = false"
-                    type="button"
-                    class="size-5"
-                >
-                    <XMarkIcon class="size-full" />
-                </button>
-            </li>
-            <li v-for="link in links">
-                <NuxtLink
-                    :to="link.link"
-                    class="pb-1 hover:text-primary duration-200 w-full inline-block"
-                    :class="$route.path === link.link ? 'text-primary' : ''"
-                >
-                    {{ link.label }}
-                </NuxtLink>
-            </li>
-        </ul>
         <NuxtLink to="/" class="text-2xl font-bold">YTTT-DL</NuxtLink>
         <ul class="hidden lg:flex gap-5 text-[#323232]">
             <li v-for="link in links">
                 <NuxtLink
-                    :to="link.link"
+                    :to="link.url"
                     class="pb-1 hover:border-primary"
                     active-class="border-b-2 border-primary"
                 >
@@ -114,7 +84,26 @@ const isMenuOpen = ref(false);
             </span>
         </button>
     </nav>
-    
+
+    <nav
+        class="fixed bg-white bottom-0 left-0 w-full flex gap-2 shadow-slate-800/40 shadow rounded-t-lg py-3 px-2 z-50 lg:hidden"
+    >
+        <template v-for="link in links">
+            <NuxtLink
+                :to="link.url"
+                class="size-full px-3 py-2 gap-1.5 flex justify-center items-center rounded-lg flex-1"
+                :class="
+                    $route.path === link.url
+                        ? 'bg-primary text-white'
+                        : 'bg-transparent text-black/50'
+                "
+            >
+                <component :is="link.icon" class="size-6" />
+                <span>{{ link.label }}</span>
+            </NuxtLink>
+        </template>
+    </nav>
+
     <div class="container md:max-w-4xl xl:max-w-5xl">
         <div class="flex flex-col gap-5 items-center text-center mt-16">
             <h1 class="text-3xl md:text-5xl font-bold">
