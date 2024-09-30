@@ -56,7 +56,7 @@ const isDescriptionShow = ref(false);
                     v-model="model"
                     @submit="emits('handleDownload')"
                 >
-                    <option value="full-hd">Full HD</option>
+                    <option value="full-hd">MP4 - Full HD</option>
                     <option
                         v-for="format in props.videoFormats"
                         :value="format.url"
