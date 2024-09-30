@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-white dark:bg-ebony-clay dark:text-iron duration-150 dark:border-iron;
+    }
+
+    input {
+        @apply bg-transparent;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-primary hover:bg-primary-600 duration-150 text-primary-content font-medium inline-flex justify-center items-center gap-1.5 flex-1 sm:flex-none sm:h-full rounded-md px-5 disabled:bg-primary-300;
+    }
+}
