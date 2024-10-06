@@ -41,7 +41,7 @@ const downloadVideo = async (videoUrl) => {
     if (videoUrl === "full-hd") {
         isDownloading.value = true;
         try {
-            const res = await $fetch(apiBaseUrl + "/ytdl", {
+            const res = await $fetch(`${apiBaseUrl}/api/v1/ytdl`, {
                 method: "POST",
                 accept: "application/json",
                 body: {
