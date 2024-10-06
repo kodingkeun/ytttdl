@@ -80,6 +80,10 @@ const togglePlayPause = () => {
         isPlaying.value = false;
     }
 };
+
+const isDownloadButtonDisabled = computed(() => {
+    return isDownloading.value || (!selectedFormat.value || selectedFormat.value === 'Choose Format')
+});
 </script>
 
 <template>
@@ -175,10 +179,20 @@ const togglePlayPause = () => {
                         MP3 - SD
                     </option>
                 </InputSelect>
-                <ButtonDownload :downloading="isDownloading" />
+                <ButtonDownload 
+                    :class="{ 'disable-download-button': isDownloadButtonDisabled }"
+                    :disabled="isDownloadButtonDisabled"
+                    :downloading="isDownloading" 
+                />
             </form>
         </div>
         <CardPreviewStatus v-else-if="!video && !pending" status="not-found" />
         <CardPreviewLoading v-else-if="!video && pending" />
     </div>
 </template>
+
+<style scoped>
+.disable-download-button {
+  cursor: not-allowed;
+}
+</style>
