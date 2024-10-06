@@ -17,5 +17,8 @@
     "nuxt": "^3.13.0",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@nuxtjs/dotenv": "^1.4.2"
   }
 }

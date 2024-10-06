@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     compatibilityDate: "2024-04-03",
     devtools: { enabled: false },
     modules: ["@nuxtjs/tailwindcss", "@nuxt/fonts"],
+    buildModules: ["@nuxtjs/dotenv"],
     tailwindcss: {
         config: {
             darkMode: "selector",
