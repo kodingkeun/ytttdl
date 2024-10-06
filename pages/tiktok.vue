@@ -49,7 +49,7 @@ const handleDownload = async () => {
     if (selectedFormat.value === "mp4-hd") {
         isDownloading.value = true;
         try {
-            const res = await $fetch(apiBaseUrl + "/tiktok", {
+            const res = await $fetch(apiBaseUrl + "/api/v1/tiktok", {
                 method: "POST",
                 accept: "application/json",
                 body: {
