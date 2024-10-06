@@ -4,7 +4,7 @@ export const useApi = ({ apiUrl }) => {
     const pending = ref(false);
     const error = ref(null);
     const response = ref(null);
-    const baseUrl = process.env.API_BASE_URL;
+    const baseUrl = `${process.env.API_BASE_URL}${apiUrl}`;
 
     const request = async (videoUrl) => {
         pending.value = true;
@@ -16,7 +16,7 @@ export const useApi = ({ apiUrl }) => {
 
         try {
             const res = await axios.post(
-                baseUrl + apiUrl,
+                baseUrl,
                 body,
                 {
                     headers: {

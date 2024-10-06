@@ -26,7 +26,7 @@ const {
     request: getVideo,
     pending,
 } = useApi({
-    apiUrl: "/ytdl/info",
+    apiUrl: "/api/v1/ytdl/info",
 });
 
 const handleSubmit = () => {

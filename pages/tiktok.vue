@@ -34,7 +34,7 @@ const {
     request: getVideo,
     pending,
 } = useApi({
-    apiUrl: "/tiktok/info",
+    apiUrl: "/api/v1/tiktok/info",
 });
 
 const handleSubmit = () => {
