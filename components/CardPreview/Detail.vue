@@ -15,6 +15,10 @@ const emits = defineEmits(["handleDownload"]);
 const model = defineModel();
 
 const isDescriptionShow = ref(false);
+
+const isDownloadButtonDisabled = computed(() => {
+    return props.downloading || (!model.value || model.value === 'Choose Resolution')
+});
 </script>
 
 <template>
@@ -65,10 +69,17 @@ const isDescriptionShow = ref(false);
                     </option>
                 </InputSelect>
                 <ButtonDownload
-                    :disabled="props.downloading"
+                    :class="{ 'disable-download-button': isDownloadButtonDisabled }"
+                    :disabled="isDownloadButtonDisabled"
                     :downloading="props.downloading"
                 />
             </form>
         </div>
     </div>
 </template>
+
+<style scoped>
+.disable-download-button {
+  cursor: not-allowed;
+}
+</style>
