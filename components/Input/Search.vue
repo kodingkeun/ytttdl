@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon } from '@heroicons/vue/16/solid';
 const emit = defineEmits(["submit"]);
 const model = defineModel();
 const props = defineProps({
-  errors: Object,
+  errors: String,
   loading: Boolean,
   placeholder: String
 })
