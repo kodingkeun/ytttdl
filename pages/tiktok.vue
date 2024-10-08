@@ -11,6 +11,7 @@ const isPlaying = ref(false);
 const selectedFormat = ref("Choose Format");
 const apiBaseUrl = process.env.API_BASE_URL;
 const isDownloading = ref(false);
+const firstTime = ref(true);
 const regex =  /tiktok\.com|vt\.tiktok\.com/;
 const form = reactive({
     url: "",
@@ -42,6 +43,7 @@ const handleSubmit = () => {
     if (form.errors.url) {
         return;
     }
+    firstTime.value  = false;
     getVideo(form.url);
 };
 
@@ -186,7 +188,7 @@ const isDownloadButtonDisabled = computed(() => {
                 />
             </form>
         </div>
-        <CardPreviewStatus v-else-if="!video && !pending" status="not-found" />
+        <CardPreviewStatus v-else-if="!video && !pending" status="not-found" v-show="!firstTime" />
         <CardPreviewLoading v-else-if="!video && pending" />
     </div>
 </template>
