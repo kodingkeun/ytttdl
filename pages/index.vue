@@ -1,9 +1,9 @@
 <script setup>
-import { MagnifyingGlassIcon } from "@heroicons/vue/16/solid";
 import { useApi } from "~/composables/useApi";
 const selectedVideo = ref("Choose Resolution");
 const apiBaseUrl = process.env.API_BASE_URL;
 const isDownloading = ref(false);
+const firstTime = ref(true);
 const youtubeRegex = /youtube\.com|youtu\.be/;
 const form = reactive({
     url: "",
@@ -34,6 +34,7 @@ const handleSubmit = () => {
     if (form.errors.url) {
         return;
     }
+    firstTime.value  = false;
     getVideo(form.url);
 };
 
@@ -100,7 +101,7 @@ const downloadVideo = async (videoUrl) => {
                 v-model="selectedVideo"
             />
         </CardPreview>
-        <CardPreviewStatus v-else-if="!videos && !pending" status="not-found" />
+        <CardPreviewStatus v-else-if="!videos && !pending" status="not-found" v-show="!firstTime" />
         <CardPreviewLoading v-else-if="!videos && pending" />
         <CardPreviewStatus v-else status="error" />
     </div>
