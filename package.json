@@ -15,6 +15,7 @@
     "@nuxtjs/tailwindcss": "^6.12.1",
     "axios": "^1.7.7",
     "nuxt": "^3.13.0",
+    "pm2": "^5.4.2",
     "vue": "latest",
     "vue-router": "latest"
   },
